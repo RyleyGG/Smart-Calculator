@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import javafx.application.Application;
 import javafx.collections.FXCollections;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
@@ -60,23 +61,31 @@ public class gui extends Application
             if (result.get() == solveChoice)
             {
                 System.out.println("Solve");
+                instructionOptionSelector.setText("Solve");
             }
             if (result.get() == factorChoice)
             {
                 System.out.println("Factor");
+                instructionOptionSelector.setText("Factor");
             }
             if (result.get() == integrateChoice)
             {
                 System.out.println("Integrate");
+                instructionOptionSelector.setText("Integrate");
             }
             if (result.get() == differentiateChoice)
             {
                 System.out.println("Differentiate");
+                instructionOptionSelector.setText("Differentiate");
             }
         });
         TextField userInputField = new TextField();
         Button enterInputButton = new Button("GO");
 
+
+        rootPane.setAlignment(Pos.CENTER);
+        userInteractables.setAlignment(Pos.CENTER);
+        userInteractables.spacingProperty().bind(scene.widthProperty().multiply(0.01));
         userInteractables.getChildren().addAll(instructionOptionSelector, userInputField, enterInputButton);
         rootPane.getChildren().addAll(inputRepresentation, userInteractables);
 
