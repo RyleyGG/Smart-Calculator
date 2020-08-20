@@ -1,11 +1,14 @@
 package com.ryleygg;
 
+import java.util.Optional;
+
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.scene.Node;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.paint.Color;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -19,6 +22,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ComboBox;
 import javafx.scene.text.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 
 
 public class gui extends Application
@@ -39,15 +44,40 @@ public class gui extends Application
         instructionList[2] = "Integrate";
         instructionList[3] = "Differentiate";
 
-        ComboBox instructionOptions = new ComboBox(FXCollections.observableArrayList(instructionList));
-        instructionOptions.setOnMouseReleased(e ->
+        Button instructionOptionSelector = new Button(instructionList[0]);
+        instructionOptionSelector.setOnMouseReleased(e ->
         {
-            System.out.println("Yo");
+            Alert instructionAlert = new Alert(AlertType.CONFIRMATION);
+            instructionAlert.setTitle("Select Request");
+            instructionAlert.setHeaderText("Select your request below");
+            ButtonType solveChoice = new ButtonType("Solve");
+            ButtonType factorChoice = new ButtonType("Factor");
+            ButtonType integrateChoice = new ButtonType("Integrate");
+            ButtonType differentiateChoice = new ButtonType("Differentiate");
+            instructionAlert.getButtonTypes().setAll(solveChoice,factorChoice,integrateChoice,differentiateChoice);
+
+            Optional<ButtonType> result = instructionAlert.showAndWait();
+            if (result.get() == solveChoice)
+            {
+                System.out.println("Solve");
+            }
+            if (result.get() == factorChoice)
+            {
+                System.out.println("Factor");
+            }
+            if (result.get() == integrateChoice)
+            {
+                System.out.println("Integrate");
+            }
+            if (result.get() == differentiateChoice)
+            {
+                System.out.println("Differentiate");
+            }
         });
         TextField userInputField = new TextField();
         Button enterInputButton = new Button("GO");
 
-        userInteractables.getChildren().addAll(instructionOptions, userInputField, enterInputButton);
+        userInteractables.getChildren().addAll(instructionOptionSelector, userInputField, enterInputButton);
         rootPane.getChildren().addAll(inputRepresentation, userInteractables);
 
         primaryStage.setScene(scene);
